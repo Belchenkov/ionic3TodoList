@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Storage } from '@ionic/storage';
+import { TodosPage } from '../todos/todos';
 
 /**
  * Generated class for the AddTodoPage page.
@@ -40,8 +41,24 @@ export class AddTodoPage {
    });
   }
 
+  guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
+
   onAddSubmit() {
-    
+    this.todo.id = this.guidGenerator();
+    this.todos.push(this.todo);
+
+    this.storage.ready().then(() => {
+      // Set Todo
+      this.storage.set('todos', JSON.stringify(this.todos));
+
+      // Redirect
+      this.navCtrl.push(TodosPage);
+   });
   }
 
 
