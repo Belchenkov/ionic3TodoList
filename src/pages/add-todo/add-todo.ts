@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Storage } from '@ionic/storage';
 
 /**
  * Generated class for the AddTodoPage page.
@@ -13,12 +14,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'add-todo.html',
 })
 export class AddTodoPage {
+  todos: any;
+  todo: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
+    this.todo = {
+      id: '',
+      text: '',
+      body: '',
+      due: ''
+    };
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddTodoPage');
+   this.storage.ready().then(() => {
+     this.storage.get('todos').then((val) => {
+       if (val) {
+        this.todos = JSON.parse(val);
+       } else {
+         this.todos = [];
+       }
+     }).catch((err => {
+       console.log(err);
+     }))
+   });
   }
+
+  onAddSubmit() {
+    
+  }
+
 
 }
