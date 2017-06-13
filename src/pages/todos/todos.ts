@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import {TodoDetailsPage} from '../todo-details/todo-details';
 
 
 @IonicPage()
@@ -14,7 +15,7 @@ export class TodosPage {
   constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.storage.ready().then(() => {
      this.storage.get('todos').then((val) => {
        console.log(val);
@@ -29,4 +30,10 @@ export class TodosPage {
    });
   }
 
+  todoSelected(todo) {
+    this.navCtrl.push(TodoDetailsPage, todo);
+  }
+
+
 }
+

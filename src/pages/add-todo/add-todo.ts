@@ -60,6 +60,4 @@ export class AddTodoPage {
       this.navCtrl.push(TodosPage);
    });
   }
-
-
 }
