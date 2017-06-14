@@ -26,7 +26,7 @@ export class TodoDetailsPage {
   }
 
   onEditClick() {
-    
+    this.navCtrl.push(EditTodoPage, this.todo);
   }
 
   onDeleteClick() {
@@ -43,7 +43,7 @@ export class TodoDetailsPage {
         
         this.navCtrl.push(TodosPage);
       })
-    });
+    });  
   }
 
 }
